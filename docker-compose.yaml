@@ -1,0 +1,32 @@
+version: '3.1'
+
+services:
+
+  redis:
+    image: 'bitnami/redis:latest'
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    restart: always
+    volumes:
+      - shortener-redis-volume:/var/lib/redis
+#    networks:
+#      - shortener
+
+  shortener:
+    image: shortener:latest
+    container_name: shortener
+    build: .
+    restart: always
+#    networks:
+#      - shortener
+    ports:
+      - 8081:8080
+
+#Volume
+volumes:
+  shortener-redis-volume:
+
+#Network
+networks: 
+  shortener: 
+
